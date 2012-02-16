@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1 user page
+    textarea#user-timeline
+    textarea#home-timeline
+    textarea#public-timeline
+    textarea#log
+    script
+        var socket = io.connect('http://localhost:1337');
+        socket.on('tweet-user-timeline', function(data){
+            document.getElementById('user-timeline').value += JSON.stringify(data);
+        });
+        socket.on('tweet-home-timeline', function(data){
+            document.getElementById('home-timeline').value += JSON.stringify(data);
+        });
+        socket.on('tweet-response', function(data){
+            document.getElementById('log').value += JSON.stringify(data);
+        });
