@@ -1,19 +1,49 @@
 extends layout
 
 block content
-    h1 user page
-    textarea#user-timeline
+    h1 REST API Resources 
+
+    h2 GET statuses/home_timeline
     textarea#home-timeline
+
+    h2 GET statuses/mentions
+    textarea#mentions
+
+    h2 GET statuses/public_timeline
     textarea#public-timeline
-    textarea#log
+
+    h2 GET statuses/retweeted_by_me
+    textarea#retweet-by-me
+
+    h2 GET statuses/retweeted_to_me
+    textarea#retweet-to-me
+
+    h2 GET statuses/retweeted_of_me
+    textarea#retweet-of-me
+
+    h2 GET statuses/user_timeline 
+    textarea#user-timeline
+
     script
         var socket = io.connect('http://localhost:1337');
         socket.on('tweet-user-timeline', function(data){
-            document.getElementById('user-timeline').value += JSON.stringify(data);
+            $('#user-timeline').val(JSON.stringify(data));
         });
         socket.on('tweet-home-timeline', function(data){
-            document.getElementById('home-timeline').value += JSON.stringify(data);
+            $('#home-timeline').val(JSON.stringify(data));
         });
-        socket.on('tweet-response', function(data){
-            document.getElementById('log').value += JSON.stringify(data);
+        socket.on('tweet-mentions', function(data){
+            $('#mentions').val(JSON.stringify(data));
+        });
+        socket.on('tweet-public-timeline',function(data){
+            $('#public-timeline').val(JSON.stringify(data));
+        });
+        socket.on('tweet-retweet',function(data){
+            $('#retweet-by-me').val(JSON.stringify(data));
+        });
+        socket.on('tweet-retweet-me',function(data){
+            $('#retweet-to-me').val(JSON.stringify(data));
+        });
+        socket.on('tweet-retweet-of-me',function(data){
+            $('#retweet-of-me').val(JSON.stringify(data));
         });
