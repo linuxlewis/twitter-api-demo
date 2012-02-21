@@ -6,20 +6,48 @@ html(lang="en")
         link(rel="stylesheet", href="assets/stylesheets/css/styles.css", type="text/css")
         script(type="text/javascript",src="assets/javascripts/socket.io.js")
         script(type="text/javascript",src="assets/javascripts/jquery-1.7.1.min.js")
+        script(type="text/javascript",src="assets/javascripts/bootstrap-dropdown.js")
     body
         .navbar.navbar-fixed-top
             .navbar-inner
                 .container
-                    a(href="#",class='brand') Twitter API Demo
+                    a(href="/",class='brand') Twitter API Demo
+                    ul.nav.pull-right
+                        li
+                            a(href="#") Login
+                        li.divider-vertical
+                        li.dropdown
+                            a(href="#", class="dropdown-toggle", data-toggle="dropdown") User Name  
+                            ul.dropdown-menu
+                                li
+                                    a(href="#") Logout
         .container
-            .container-fluid
-                .row-fluid
+            .container
+                .row
                     .span2
-                        p side bar
+                        ul.nav.nav-list.well
+                            li.nav-header
+                                | REST API Resources
+                            li.active
+                                a(href="#") Timeline
+                            li
+                                a(href="#") Tweets
+                            li
+                                a(href="#") Search
+                            li
+                                a(href="#") Direct Messages
+                            li
+                                a(href="#") Friends & Follwers
+                            li
+                                a(href="#") Users
+
                     .span10
                         block content
             block foot
                 #footer
-                    p some footer content
+                    p 
+                        | Twitter is copyrighted by Twitter and shit. A 
+                        a(href="http://www.twitter.com/#!/linuxlewis")@linuxlewis 
+                        | creation.
 
         

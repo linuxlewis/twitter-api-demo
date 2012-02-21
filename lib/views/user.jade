@@ -27,7 +27,7 @@ block content
     script
         var socket = io.connect('http://localhost:1337');
         socket.on('tweet-user-timeline', function(data){
-            $('#user-timeline').val(JSON.stringify(data));
+            $('#user-timeline').val(JSON.stringify(data), null, '\t');
         });
         socket.on('tweet-home-timeline', function(data){
             $('#home-timeline').val(JSON.stringify(data));
