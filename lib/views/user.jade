@@ -1,49 +1,63 @@
 extends layout
 
+block head
+    link(rel="stylesheet", href="assets/stylesheets/css/prettify.css", type="text/css")
+    script(type="text/javascript",src="assets/javascripts/prettify.js")
+
 block content
     h1 REST API Resources 
 
-    h2 GET statuses/home_timeline
-    textarea#home-timeline
+    h2 Timeline Resources
 
-    h2 GET statuses/mentions
-    textarea#mentions
+    h3 GET statuses/home_timeline
+    pre#home-timeline.prettyprint.json
 
-    h2 GET statuses/public_timeline
-    textarea#public-timeline
+    h3 GET statuses/mentions
+    pre#mentions.prettyprint.json
 
-    h2 GET statuses/retweeted_by_me
-    textarea#retweet-by-me
+    h3 GET statuses/public_timeline
+    pre#public-timeline.prettyprint.json
 
-    h2 GET statuses/retweeted_to_me
-    textarea#retweet-to-me
+    h3 GET statuses/retweeted_by_me
+    pre#retweet-by-me.prettyprint.json
 
-    h2 GET statuses/retweeted_of_me
-    textarea#retweet-of-me
+    h3 GET statuses/retweeted_to_me
+    pre#retweet-to-me.prettyprint.json
 
-    h2 GET statuses/user_timeline 
-    textarea#user-timeline
+    h3 GET statuses/retweeted_of_me
+    pre#retweet-of-me.prettyprint.json
+
+    h3 GET statuses/user_timeline 
+    pre#user-timeline.prettyprint.json
+
 
     script
+        $(document).ready(function(){
+            prettyPrint();
+        });
         var socket = io.connect('http://localhost:1337');
         socket.on('tweet-user-timeline', function(data){
-            $('#user-timeline').val(JSON.stringify(data), null, '\t');
+            $('#user-timeline').append(JSON.stringify(data, null, '\t'));
         });
         socket.on('tweet-home-timeline', function(data){
-            $('#home-timeline').val(JSON.stringify(data));
+            $('#home-timeline').append(JSON.stringify(data, null, '\t'));
         });
         socket.on('tweet-mentions', function(data){
-            $('#mentions').val(JSON.stringify(data));
+            $('#mentions').append(JSON.stringify(data, null, '\t'));
         });
         socket.on('tweet-public-timeline',function(data){
-            $('#public-timeline').val(JSON.stringify(data));
+            $('#public-timeline').append(JSON.stringify(data, null, '\t'));
         });
         socket.on('tweet-retweet',function(data){
-            $('#retweet-by-me').val(JSON.stringify(data));
+            $('#retweet-by-me').append(JSON.stringify(data, null, '\t'));
         });
         socket.on('tweet-retweet-me',function(data){
-            $('#retweet-to-me').val(JSON.stringify(data));
+            $('#retweet-to-me').append(JSON.stringify(data, null, '\t'));
         });
         socket.on('tweet-retweet-of-me',function(data){
-            $('#retweet-of-me').val(JSON.stringify(data));
+            $('#retweet-of-me').append(JSON.stringify(data, null, '\t'));
         });
+        var id = setInterval(function(){
+            prettyPrint();
+            clearInterval(id);
+        }, 5 * 1000);

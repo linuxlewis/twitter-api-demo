@@ -1,3 +1,13 @@
 body{
     padding-top:40px;
 }
+
+#home-timeline-pretty{
+    height:400px;
+    overflow:scroll;
+}
+
+pre.json{
+    height:400px;
+    overflow:scroll;
+}
